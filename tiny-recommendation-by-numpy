@@ -1,0 +1,47 @@
+import numpy as np
+
+#Create Movies
+movies = [
+    "Avengers",
+    "Interstellar",
+    "Titanic",
+    "John Wick",
+    "The Hangover",
+    "Inception",
+    "La La Land",
+    "The Matrix",
+    "Deadpool",
+    "The Notebook"
+]
+
+#Create Feature Vectors
+#Higher numbers mean the movie contains more of that feature.
+#[Action, Comedy, Romance, Sci-Fi] are serially label
+movie_features = np.array([
+    [9, 2, 1, 8],  # Avengers
+    [4, 1, 2, 10], # Interstellar
+    [1, 2, 10, 0], # Titanic
+    [10, 1, 1, 2], # John Wick
+    [1, 10, 2, 0], # The Hangover
+    [7, 1, 2, 9],  # Inception
+    [1, 4, 9, 0],  # La La Land
+    [8, 1, 1, 10], # The Matrix
+    [7, 8, 2, 3],  # Deadpool
+    [1, 1, 10, 0]  # The Notebook
+])
+
+#Create User Preference Vector
+#Suppose a user likes: Action = 8 Comedy = 3 Romance = 1 Sci-Fi = 9
+user_preferences = np.array([8, 3, 1, 9])
+
+#Compute Similarity Using Dot Product
+#dot product measures how closely a movie matches the user's interests
+scores = movie_features.dot(user_preferences)
+
+#Get Top 3 Recommendations
+top_indices = np.argsort(scores)[::-1][:3]
+
+print("Top 3 Recommendations:\n")
+
+for i in top_indices:
+    print(f"{movies[i]} -> Score: {scores[i]}")
